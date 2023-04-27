@@ -1,31 +1,34 @@
-#Config Variables
-$SiteURL = "https://raftelis.sharepoint.com/sites/Projects"
-$SearchTerm = "Executive Search"
+# Import the required module; if this fails, make sure you've got PnP.PowerShell installed
+Import-Module -Name "required-modules" -RequiredVersion "2.*" -Scope CurrentUser
 
-#Output File
-$CSVPath = "./results.csv"
+# Configure site and search variables
+$SiteURL = "<SharePoint Site URL>"
+$SearchTerm = "<Search Term>"
+
+# Set output file path
+$CSVPath = "<your-file-path.csv>"
 
 Try {
     #Connect to PnP Online
     Connect-PnPOnline -Url $SiteURL -Interactive
 
-    #Get All Lists in the Site
+    # Gather all lists on the specified site
     $Lists = Get-PnPList
 
-    #Create an array to hold folder details
+    # Create an array to hold folder details
     $FolderDetails = @()
 
-    #Loop through all Lists
+    # Loop through all Lists
     foreach ($List in $Lists) {
-        #Get All List Items in batches of 500
+        # Get all list items in batches of 500 to avoid list view threshold
         $ListItems = Get-PnPListItem -List $List.Title -PageSize 500
 
-        #Filter Folders with Search Term in Name
+        # Filter folders with search term in name
         $FilteredFolders = $ListItems | 
         Where-Object { $_.FileSystemObjectType -eq "Folder" -and $_["FileLeafRef"] -like "*$SearchTerm*" }
         Write-Host "Number of matching folders in '$($List.Title)': $($FilteredFolders.Count)"
 
-        #Get Folder Details and add to array
+        # Get the desired details (folder name and URL) and add to array
         $FolderDetails += $FilteredFolders | ForEach-Object {
             [PSCustomObject]@{
                 FolderName = $_.FieldValues.FileLeafRef
@@ -34,7 +37,7 @@ Try {
         }
     }
 
-    #Export folder details to CSV
+    # Export gathered details to CSV; using semicolon as delimiter to ensure Excel compatibility
     $FolderDetails | Export-Csv -Path $CSVPath -NoTypeInformation -Encoding utf8 -Delimiter ";"
 
     Write-Host "Folder details exported to CSV file: $CSVPath"

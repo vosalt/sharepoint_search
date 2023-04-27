@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PSModuleAutoLoading>
+  <Module
+      Name="PnP.PowerShell"
+      Version="2.*"
+      PowerShellVersion="7.*"
+      Scope="CurrentUser"
+      />
+</PSModuleAutoLoading>
+
+<!-- To install required module, run:
+Install-Module -Name PnP.PowerShell -Scope CurrentUser-->
