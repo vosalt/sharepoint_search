@@ -28,4 +28,4 @@ There's an included .ps1xml file that lists the one and only module required (Pn
 
 I am but a humble newcomer to PowerShell.
 
-I run Linux as base, so everything works with PowerShell 7, but I assume it would work just fine with 5 as well.
+I run Linux as a base, so everything works with PowerShell 7, but I assume it would work just fine with 5 as well.
