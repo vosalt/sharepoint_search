@@ -1,6 +1,3 @@
-# Import the required module; if this fails, make sure you've got PnP.PowerShell installed
-Import-Module -Name "required-modules" -RequiredVersion "2.*" -Scope CurrentUser
-
 # Configure site and search variables
 $SiteURL = "<SharePoint Site URL>"
 $SearchTerm = "<Search Term>"
