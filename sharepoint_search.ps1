@@ -23,14 +23,19 @@ Try {
         #Filter Folders with Search Term in Name
         $FilteredFolders = $ListItems | 
         Where-Object { $_.FileSystemObjectType -eq "Folder" -and $_["FileLeafRef"] -like "*$SearchTerm*" }
-        Write-Host "Number of matching folders: $($FilteredFolders.Count)"
+        Write-Host "Number of matching folders in '$($List.Title)': $($FilteredFolders.Count)"
 
         #Get Folder Details and add to array
-        $FolderDetails += $FilteredFolders | Select-Object Name, ServerRelativeUrl
+        $FolderDetails += $FilteredFolders | ForEach-Object {
+            [PSCustomObject]@{
+                FolderName = $_.FieldValues.FileLeafRef
+                URL        = $_.FieldValues.FileRef
+            }
+        }
     }
 
     #Export folder details to CSV
-    $FolderDetails | Export-Csv -Path $CSVPath -NoTypeInformation -Encoding utf8
+    $FolderDetails | Export-Csv -Path $CSVPath -NoTypeInformation -Encoding utf8 -Delimiter ";"
 
     Write-Host "Folder details exported to CSV file: $CSVPath"
 }
