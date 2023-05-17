@@ -14,18 +14,28 @@ The use-case is pretty specific and therefore the utility is limited, but you ne
 2. Gathers the directory names and short-form URL for each of the above
 3. Outputs the collected information and outputs it to a CSV file
 
-### Usage
+### UPDATED Usage
 
-In its current form, the script doesn't take arguments (I'm considering updating it, but PowerShell isn't my specialty), so you'll have to edit the script itself to include:
+~~In its current form, the script doesn't take arguments~~
 
-- Site URL
-- Search term
-- Output file path
+✨Parameters now included!✨ You no longer need to alter the script itself to perform the search! Very exciting.
+
+The three required parameters are:
+
+- SiteURL
+- SearchTerm
+- CSVPath
+
+Example:
+
+`.\sharepoint_search.ps1 -SiteURL "https://contoso.sharepoint.com/sites/MySite" -SearchTerm "MyFolder" -CSVPath "C:\Temp\MyFolder.csv"`
+
+I've also updated the script to include help and usage info directly, which be accessed via `Get-Help`
 
 ### Requirements
 
-There's an included .ps1xml file that lists the one and only module required (PnP.PowerShell) for this to work. As mentioned, PowerShell isn't my specialty so the script won't install/import this module automatically. I included the .ps1xml for documentation purposes, as well as for anyone who knows how to properly implement them in the code.
+I'm far from a PS expert, so the script doesn't perform a check for the one required module (PnP.PowerShell) at runtime, though I'd like to figure out how to implement that in the future. I'm still very much in the "grasshopper" stage of using PowerShell for 365 automation/admin.
 
-I am but a humble newcomer to PowerShell.
+I _did_ include a .ps1xml file with this requirement listed for documentation purposes.
 
 I run Linux as a base, so everything works with PowerShell 7, but I assume it would work just fine with 5 as well.
