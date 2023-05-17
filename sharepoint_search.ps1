@@ -1,6 +1,11 @@
 # Configure site and search variables
-$SiteURL = "<SharePoint Site URL>"
-$SearchTerm = "<Search Term>"
+param (
+    [Parameter(Mandatory = $true)]
+    [string]$SiteURL,
+
+    [Parameter(Mandatory = $true)]
+    [string]$SearchTerm
+)
 
 # Set output file path
 $CSVPath = "<your-file-path.csv>"
