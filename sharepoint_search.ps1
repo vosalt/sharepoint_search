@@ -1,14 +1,38 @@
-# Configure site and search variables
+<#
+.SYNOPSIS
+    Search for folders in all lists on a SharePoint site and output results to CSV file.
+
+.DESCRIPTION
+    Search for folders in all lists on a SharePoint site. Site to be searched and search term are entered as parameters. You will be prompted for credentials
+    at run time. Ensure you have the PnP PowerShell module installed. The script will output the results to a CSV file containing the name of the folder
+    and the current URL.
+
+.PARAMETER SiteURL
+    The URL of the SharePoint site to be searched.
+
+.PARAMETER SearchTerm
+    The search term to be used to find folders.
+
+.PARAMETER CSVPath
+    Output path and filename for generated CSV.
+
+.EXAMPLE
+    .\sharepoint_search.ps1 -SiteURL "https://contoso.sharepoint.com/sites/MySite" -SearchTerm "MyFolder" -CSVPath "C:\Temp\MyFolder.csv"
+
+
+#>
+
+# Parameters for configuring site, search, and output variables
 param (
     [Parameter(Mandatory = $true)]
     [string]$SiteURL,
 
     [Parameter(Mandatory = $true)]
-    [string]$SearchTerm
-)
+    [string]$SearchTerm,
 
-# Set output file path
-$CSVPath = "<your-file-path.csv>"
+    [Parameter(Mandatory = $true)]
+    [string]$CSVPath
+)
 
 Try {
     #Connect to PnP Online
